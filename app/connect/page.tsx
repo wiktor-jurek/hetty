@@ -65,13 +65,16 @@ export default function ConnectPage() {
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <Link
-            href="/signin"
-            className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-purple-600 transition-colors mb-4"
+          <Button
+            variant="ghost"
+            className="inline-flex items-center gap-2 mb-4"
+            asChild
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to sign in
-          </Link>
+            <Link href="/signin">
+              <ArrowLeft className="w-4 h-4" />
+              Back to sign in
+            </Link>
+          </Button>
           <div className="flex items-center justify-center gap-2">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
               <Eye className="h-5 w-5 text-white" />
@@ -94,10 +97,12 @@ export default function ConnectPage() {
               <Info className="h-4 w-4" />
               <AlertDescription>
                 You can find your API credentials in your Looker Admin settings under API.{" "}
-                <Link href="#" className="text-purple-600 hover:underline inline-flex items-center gap-1">
-                  Learn more
-                  <ExternalLink className="h-3 w-3" />
-                </Link>
+                <Button variant="link" className="inline-flex items-center gap-1" asChild>
+                  <Link href="#">
+                    Learn more
+                    <ExternalLink className="h-3 w-3" />
+                  </Link>
+                </Button>
               </AlertDescription>
             </Alert>
 

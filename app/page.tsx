@@ -20,20 +20,26 @@ export default function Component() {
           >
             <source src="/hetty-animation.mp4" type="video/mp4" />
           </video>
-          <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <span className="text-xl font-bold text-pink-600 bg-clip-text text-transparent">
             Hetty
           </span>
         </div>
         <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link href="#features" className="text-sm font-medium hover:text-purple-600 transition-colors">
-            Features
-          </Link>
-          <Link href="#about" className="text-sm font-medium hover:text-purple-600 transition-colors">
-            About
-          </Link>
-          <Link href="https://github.com" className="text-sm font-medium hover:text-purple-600 transition-colors">
-            GitHub
-          </Link>
+          <Button variant="ghost" asChild>
+            <Link href="#features">
+              Features
+            </Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link href="#about">
+              About
+            </Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link href="https://github.com">
+              GitHub
+            </Link>
+          </Button>
         </nav>
       </header>
 
@@ -62,12 +68,12 @@ export default function Component() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  className="bg-purple-600 hover:bg-purple-700"
                   asChild
                 >
-                  <Link href="/signin">
+                  <Link href="/dashboard">
                     <Eye className="w-4 h-4 mr-2" />
-                    Connect to Looker
+                    Open Dashboard
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg">
@@ -195,7 +201,7 @@ export default function Component() {
         </section>
 
         {/* CTA Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gradient-to-r from-purple-600 to-pink-600">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-purple-600">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center space-y-6 text-center text-white">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -206,9 +212,9 @@ export default function Component() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" variant="secondary" asChild>
-                  <Link href="/signin">
+                  <Link href="/dashboard">
                     <Eye className="w-4 h-4 mr-2" />
-                    Connect to Looker
+                    Open Dashboard
                   </Link>
                 </Button>
                 <Button
@@ -229,15 +235,21 @@ export default function Component() {
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-white">
         <p className="text-xs text-slate-500">© 2024 Hetty. Built with ❤️ for the model management community.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link href="#" className="text-xs hover:underline underline-offset-4 text-slate-500">
-            Documentation
-          </Link>
-          <Link href="#" className="text-xs hover:underline underline-offset-4 text-slate-500">
-            GitHub
-          </Link>
-          <Link href="#" className="text-xs hover:underline underline-offset-4 text-slate-500">
-            Issues
-          </Link>
+          <Button variant="ghost" asChild>
+            <Link href="#">
+              Documentation
+            </Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link href="#">
+              GitHub
+            </Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link href="#">
+              Issues
+            </Link>
+          </Button>
         </nav>
       </footer>
     </div>

@@ -33,13 +33,16 @@ export default function SignInPage() {
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-purple-600 transition-colors mb-4"
+          <Button
+            variant="ghost"
+            className="inline-flex items-center gap-2 mb-4"
+            asChild
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to home
-          </Link>
+            <Link href="/">
+              <ArrowLeft className="w-4 h-4" />
+              Back to home
+            </Link>
+          </Button>
           <div className="flex items-center justify-center gap-2">
             <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
               <Eye className="h-5 w-5 text-white" />
@@ -100,9 +103,11 @@ export default function SignInPage() {
             <div className="mt-6 text-center">
               <p className="text-sm text-slate-600">
                 Don&apos;t have an account?{" "}
-                <Link href="#" className="text-purple-600 hover:underline">
-                  Sign up
-                </Link>
+                <Button variant="link" asChild>
+                  <Link href="#">
+                    Sign up
+                  </Link>
+                </Button>
               </p>
             </div>
           </CardContent>

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
@@ -48,7 +48,7 @@ body {
     --sidebar-border: oklch(0.9197 0.0040 286.3202);
     --sidebar-ring: oklch(0.6559 0.2118 354.3084);
     --sidebar: oklch(1.0000 0 0);
-    --font-sans: Geist;
+    --font-sans: var(--font-manrope);
     --font-serif: Lora;
     --font-mono: Geist Mono;
     --shadow-color: #000000;
@@ -104,7 +104,7 @@ body {
     --sidebar-ring: oklch(0.7253 0.1752 349.7607);
     --radius: 0.75rem;
     --sidebar: oklch(0.1776 0 0);
-    --font-sans: Geist;
+    --font-sans: var(--font-manrope);
     --font-serif: Lora;
     --font-mono: Geist Mono;
     --shadow-color: #000000;
@@ -125,7 +125,7 @@ body {
     --shadow-2xl: 0px 0px 0px 0px hsl(0 0% 0% / 0.00);
   }
   .theme {
-    --font-sans: Geist;
+    --font-sans: var(--font-manrope);
     --font-mono: Geist Mono;
     --font-serif: Lora;
     --radius: 0.75rem;
