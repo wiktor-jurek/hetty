@@ -6,13 +6,20 @@ import Link from "next/link"
 
 export default function Component() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-white/80 backdrop-blur-sm">
+      <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-white">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-            <Eye className="h-4 w-4 text-white" />
-          </div>
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="w-8 h-8 rounded-lg"
+            style={{ objectFit: 'cover' }}
+          >
+            <source src="/hetty-animation.mp4" type="video/mp4" />
+          </video>
           <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
             hetty
           </span>
@@ -78,7 +85,7 @@ export default function Component() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-white">
+        <section id="features" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Why Choose hetty?</h2>
@@ -129,7 +136,7 @@ export default function Component() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32 bg-slate-50">
+        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="grid gap-10 lg:grid-cols-2 items-center">
               <div className="space-y-6">
