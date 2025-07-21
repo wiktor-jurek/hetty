@@ -19,7 +19,7 @@ export default function SignInPage() {
     try {
       await signIn.social({
         provider: "google",
-        callbackURL: "/connect",
+        callbackURL: "/dashboard",
       })
     } catch (error) {
       console.error("Sign in failed:", error)
@@ -96,6 +96,8 @@ export default function SignInPage() {
             </Button>
           </CardContent>
         </Card>
+
+
 
         {/* Info Notice */}
         <div className="text-center">

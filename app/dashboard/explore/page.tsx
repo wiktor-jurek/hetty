@@ -72,7 +72,7 @@ export default function ExplorePage() {
           </CardHeader>
           <CardContent>
             <Button asChild className="bg-amber-600 hover:bg-amber-700">
-              <Link href="/dashboard/connection">
+              <Link href="/dashboard/connections">
                 Connect to Looker
               </Link>
             </Button>

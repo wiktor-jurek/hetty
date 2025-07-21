@@ -1,257 +1,186 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Trash2, Eye, Terminal, Sparkles, Github } from "lucide-react"
+import { ArrowRight, Eye, Shield, Zap, Users, Building, CheckCircle } from "lucide-react"
 import Link from "next/link"
 
-export default function Component() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      {/* Header */}
-      <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-white">
-        <div className="flex items-center gap-2">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="w-8 h-8 rounded-lg"
-            style={{ objectFit: 'cover' }}
-          >
-            <source src="/hetty-animation.mp4" type="video/mp4" />
-          </video>
-          <span className="text-xl font-bold text-pink-600 bg-clip-text text-transparent">
-            Hetty
-          </span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      {/* Hero Section */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="text-center space-y-6 max-w-4xl mx-auto">
+          {/* Logo */}
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+              <Eye className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Hetty
+            </span>
+          </div>
+
+          {/* Hero Content */}
+          <div className="space-y-4">
+            <Badge variant="secondary" className="mb-4">
+              Connection-Driven Organizations
+            </Badge>
+            <h1 className="text-5xl font-bold text-slate-900 leading-tight">
+              Connect Your Team Through
+              <br />
+              <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Shared Connections
+              </span>
+            </h1>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+              Hetty creates organizations around your data connections. When you add a connection, 
+              you either join an existing team or create your own organization.
+            </p>
+          </div>
+
+                     {/* CTA Buttons */}
+           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+             <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+               <Link href="/signin">
+                 Get Started
+                 <ArrowRight className="w-4 h-4 ml-2" />
+               </Link>
+             </Button>
+           </div>
         </div>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Button variant="ghost" asChild>
-            <Link href="#features">
-              Features
-            </Link>
-          </Button>
-          <Button variant="ghost" asChild>
-            <Link href="#about">
-              About
-            </Link>
-          </Button>
-          <Button variant="ghost" asChild>
-            <Link href="https://github.com">
-              GitHub
-            </Link>
-          </Button>
-        </nav>
-      </header>
+      </div>
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="flex flex-col items-center space-y-8 text-center">
-              <div className="space-y-4">
-                <Badge variant="secondary" className="px-3 py-1">
-                  <Sparkles className="w-3 h-3 mr-1" />
-                  Visual Model Cleanup Tool
-                </Badge>
-                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-                  Meet{" "}
-                  <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    Hetty
-                  </span>
-                </h1>
-                <p className="mx-auto max-w-[700px] text-slate-600 md:text-xl lg:text-2xl">
-                  The visual companion to henry. Clean up your old models with an intuitive interface that makes model
-                  management effortless.
-                </p>
+      {/* Features Section */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">How It Works</h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Our connection-driven approach automatically organizes teams around shared data sources
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <Card className="text-center">
+            <CardHeader>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Users className="h-6 w-6 text-blue-600" />
               </div>
+              <CardTitle>1. Sign Up & Connect</CardTitle>
+              <CardDescription>
+                Create your account and add your first data connection (Looker, Salesforce, etc.)
+              </CardDescription>
+            </CardHeader>
+          </Card>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-purple-600 hover:bg-purple-700"
-                  asChild
-                >
-                  <Link href="/dashboard">
-                    <Eye className="w-4 h-4 mr-2" />
-                    Open Dashboard
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg">
-                  <Github className="w-4 h-4 mr-2" />
-                  View on GitHub
-                </Button>
+          <Card className="text-center">
+            <CardHeader>
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Building className="h-6 w-6 text-green-600" />
               </div>
+              <CardTitle>2. Automatic Organization</CardTitle>
+              <CardDescription>
+                If the connection is new, create an organization. If it exists, join the existing team.
+              </CardDescription>
+            </CardHeader>
+          </Card>
 
-              <div className="flex items-center gap-2 text-sm text-slate-500">
-                <Terminal className="w-4 h-4" />
-                <span>Inspired by henry CLI • Built for visual workflows</span>
+          <Card className="text-center">
+            <CardHeader>
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Zap className="h-6 w-6 text-purple-600" />
               </div>
-            </div>
-          </div>
-        </section>
+              <CardTitle>3. Collaborate</CardTitle>
+              <CardDescription>
+                Work together with your team on shared data sources and analytics projects
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        </div>
+      </div>
 
-        {/* Features Section */}
-        <section id="features" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6 mx-auto">
+      {/* Benefits Section */}
+      <div className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Why Choose Hetty?</h2>
-                              <p className="text-slate-600 md:text-lg max-w-2xl mx-auto">
-                  While henry handles cleanup from the command line, Hetty brings visual clarity to your model management
-                  workflow.
-                </p>
-            </div>
-
-            <div className="grid gap-6 lg:grid-cols-3">
-              <Card className="border-2 hover:border-purple-200 transition-colors">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                    <Eye className="h-6 w-6 text-purple-600" />
-                  </div>
-                  <CardTitle>Visual Interface</CardTitle>
-                  <CardDescription>
-                    See your models at a glance with an intuitive visual interface that makes cleanup decisions easy.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="border-2 hover:border-pink-200 transition-colors">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
-                    <Trash2 className="h-6 w-6 text-pink-600" />
-                  </div>
-                  <CardTitle>Smart Cleanup</CardTitle>
-                  <CardDescription>
-                    Identify and remove outdated models with intelligent suggestions and batch operations.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-
-              <Card className="border-2 hover:border-slate-200 transition-colors">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-4">
-                    <Terminal className="h-6 w-6 text-slate-600" />
-                  </div>
-                  <CardTitle>Henry Compatible</CardTitle>
-                  <CardDescription>
-                    Works seamlessly alongside henry CLI, sharing configurations and maintaining consistency.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section id="about" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="grid gap-10 lg:grid-cols-2 items-center">
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <Badge variant="outline">About Hetty</Badge>
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-                    Visual Model Management Made Simple
-                  </h2>
-                  <p className="text-slate-600 md:text-lg">
-                    Hetty was born from the need to bring visual clarity to model cleanup workflows. While henry excels
-                    at command-line operations, Hetty provides the visual interface that makes complex model management
-                    tasks accessible to everyone.
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <h3 className="text-xl font-semibold">Perfect for:</h3>
-                  <ul className="space-y-2 text-slate-600">
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      Data scientists managing multiple model versions
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      Teams needing visual model oversight
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      Organizations with complex model lifecycles
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-8 shadow-lg border">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Terminal className="w-5 h-5 text-slate-400" />
-                    <span className="font-mono text-sm text-slate-600">henry cleanup --dry-run</span>
-                  </div>
-                  <div className="text-center text-slate-400 text-sm">+</div>
-                  <div className="flex items-center gap-3">
-                    <Eye className="w-5 h-5 text-purple-500" />
-                    <span className="font-mono text-sm text-slate-600">Hetty visualize</span>
-                  </div>
-                  <div className="text-center text-slate-400 text-sm">=</div>
-                  <div className="text-center">
-                    <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-                      Perfect Model Management
-                    </Badge>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-purple-600">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="flex flex-col items-center space-y-6 text-center text-white">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Ready to Clean Up Your Models?
-              </h2>
-              <p className="mx-auto max-w-[600px] md:text-lg opacity-90">
-                Join the growing community of developers who trust Hetty for visual model management.
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Choose Hetty?</h2>
+              <p className="text-lg text-slate-600">
+                Built for teams that want seamless collaboration around their data connections
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" variant="secondary" asChild>
-                  <Link href="/dashboard">
-                    <Eye className="w-4 h-4 mr-2" />
-                    Open Dashboard
-                  </Link>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-purple-600 bg-transparent"
-                >
-                  <Github className="w-4 h-4 mr-2" />
-                  Star on GitHub
-                </Button>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-slate-900">Connection-Driven Teams</h3>
+                    <p className="text-slate-600">Organizations form naturally around shared data connections</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-slate-900">Secure & Encrypted</h3>
+                    <p className="text-slate-600">All connection credentials are encrypted and securely stored</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-slate-900">Smart Organization</h3>
+                    <p className="text-slate-600">Automatic team creation and join requests for existing connections</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-slate-900">Multiple Connections</h3>
+                    <p className="text-slate-600">Support for Looker, Salesforce, and more data sources</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-slate-900">Role-Based Access</h3>
+                    <p className="text-slate-600">Admin and member roles with appropriate permissions</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-slate-900">Easy Onboarding</h3>
+                    <p className="text-slate-600">Streamlined signup process that gets you started quickly</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </div>
 
-      {/* Footer */}
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-white">
-        <p className="text-xs text-slate-500">© 2024 Hetty. Built with ❤️ for the model management community.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Button variant="ghost" asChild>
-            <Link href="#">
-              Documentation
-            </Link>
-          </Button>
-          <Button variant="ghost" asChild>
-            <Link href="#">
-              GitHub
-            </Link>
-          </Button>
-          <Button variant="ghost" asChild>
-            <Link href="#">
-              Issues
-            </Link>
-          </Button>
-        </nav>
-      </footer>
+      {/* CTA Section */}
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">
+            Ready to Connect Your Team?
+          </h2>
+          <p className="text-lg text-slate-600 mb-8">
+            Start by adding your first connection and see how Hetty organizes your team automatically
+          </p>
+                     <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+             <Link href="/signin">
+               Start Your Free Account
+               <ArrowRight className="w-4 h-4 ml-2" />
+             </Link>
+           </Button>
+        </div>
+      </div>
     </div>
   )
 }

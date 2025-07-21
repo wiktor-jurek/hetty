@@ -22,7 +22,8 @@ import {
   Search, 
   Settings,
   Lock,
-  CheckCircle
+  CheckCircle,
+  LayoutDashboard
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -43,10 +44,16 @@ export function useConnection() {
 
 const navItems = [
   {
-    title: "Connection",
-    url: "/dashboard/connection",
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+    description: "Overview and statistics"
+  },
+  {
+    title: "Connections",
+    url: "/dashboard/connections",
     icon: Database,
-    description: "Connect to your Looker instance"
+    description: "Manage your Looker connections"
   },
   {
     title: "Models",
