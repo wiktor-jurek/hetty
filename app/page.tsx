@@ -21,7 +21,7 @@ export default function Component() {
             <source src="/hetty-animation.mp4" type="video/mp4" />
           </video>
           <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            hetty
+            Hetty
           </span>
         </div>
         <nav className="ml-auto flex gap-4 sm:gap-6">
@@ -50,7 +50,7 @@ export default function Component() {
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
                   Meet{" "}
                   <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    hetty
+                    Hetty
                   </span>
                 </h1>
                 <p className="mx-auto max-w-[700px] text-slate-600 md:text-xl lg:text-2xl">
@@ -88,11 +88,11 @@ export default function Component() {
         <section id="features" className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Why Choose hetty?</h2>
-              <p className="text-slate-600 md:text-lg max-w-2xl mx-auto">
-                While henry handles cleanup from the command line, hetty brings visual clarity to your model management
-                workflow.
-              </p>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">Why Choose Hetty?</h2>
+                              <p className="text-slate-600 md:text-lg max-w-2xl mx-auto">
+                  While henry handles cleanup from the command line, Hetty brings visual clarity to your model management
+                  workflow.
+                </p>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">
@@ -141,13 +141,13 @@ export default function Component() {
             <div className="grid gap-10 lg:grid-cols-2 items-center">
               <div className="space-y-6">
                 <div className="space-y-4">
-                  <Badge variant="outline">About hetty</Badge>
+                  <Badge variant="outline">About Hetty</Badge>
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
                     Visual Model Management Made Simple
                   </h2>
                   <p className="text-slate-600 md:text-lg">
-                    hetty was born from the need to bring visual clarity to model cleanup workflows. While henry excels
-                    at command-line operations, hetty provides the visual interface that makes complex model management
+                    Hetty was born from the need to bring visual clarity to model cleanup workflows. While henry excels
+                    at command-line operations, Hetty provides the visual interface that makes complex model management
                     tasks accessible to everyone.
                   </p>
                 </div>
@@ -180,7 +180,7 @@ export default function Component() {
                   <div className="text-center text-slate-400 text-sm">+</div>
                   <div className="flex items-center gap-3">
                     <Eye className="w-5 h-5 text-purple-500" />
-                    <span className="font-mono text-sm text-slate-600">hetty visualize</span>
+                    <span className="font-mono text-sm text-slate-600">Hetty visualize</span>
                   </div>
                   <div className="text-center text-slate-400 text-sm">=</div>
                   <div className="text-center">
@@ -202,7 +202,7 @@ export default function Component() {
                 Ready to Clean Up Your Models?
               </h2>
               <p className="mx-auto max-w-[600px] md:text-lg opacity-90">
-                Join the growing community of developers who trust hetty for visual model management.
+                Join the growing community of developers who trust Hetty for visual model management.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" variant="secondary" asChild>
@@ -227,7 +227,7 @@ export default function Component() {
 
       {/* Footer */}
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-white">
-        <p className="text-xs text-slate-500">© 2024 hetty. Built with ❤️ for the model management community.</p>
+        <p className="text-xs text-slate-500">© 2024 Hetty. Built with ❤️ for the model management community.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link href="#" className="text-xs hover:underline underline-offset-4 text-slate-500">
             Documentation

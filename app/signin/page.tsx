@@ -45,7 +45,7 @@ export default function SignInPage() {
               <Eye className="h-5 w-5 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              hetty
+              Hetty
             </span>
           </div>
           <p className="text-slate-600">Sign in to connect your Looker instance</p>
@@ -55,7 +55,7 @@ export default function SignInPage() {
         <Card>
           <CardHeader>
             <CardTitle>Welcome back</CardTitle>
-            <CardDescription>Enter your credentials to access hetty</CardDescription>
+            <CardDescription>Enter your credentials to access Hetty</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,7 +99,7 @@ export default function SignInPage() {
 
             <div className="mt-6 text-center">
               <p className="text-sm text-slate-600">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href="#" className="text-purple-600 hover:underline">
                   Sign up
                 </Link>

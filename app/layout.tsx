@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+  title: 'Hetty - Visual Model Cleanup Tool',
+  description: 'The visual companion to henry. Clean up your old models with an intuitive interface that makes model management effortless.',
+  generator: 'Hetty',
 }
 
 export default function RootLayout({

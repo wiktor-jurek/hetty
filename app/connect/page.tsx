@@ -42,7 +42,7 @@ export default function ConnectPage() {
               </div>
               <CardTitle className="text-green-800">Successfully Connected!</CardTitle>
               <CardDescription className="text-green-700">
-                hetty is now connected to your Looker instance
+                Hetty is now connected to your Looker instance
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -77,7 +77,7 @@ export default function ConnectPage() {
               <Eye className="h-5 w-5 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              hetty
+              Hetty
             </span>
           </div>
           <p className="text-slate-600">Connect to your Looker instance</p>
