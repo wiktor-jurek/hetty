@@ -20,7 +20,7 @@ import {
   FileText
 } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+
 
 // Mock data for the specific run - this will come from the database
 const mockRunData = {
@@ -53,8 +53,7 @@ const mockMostBloatedExplores = [
 ];
 
 export default function DashboardPage() {
-  const params = useParams();
-  const runId = params.runId as string;
+  const runId = "250722_223535"; // Using fixed run ID since we removed dynamic routing
 
   const healthScore = Math.round(100 - mockRunData.contentBloatScore);
 
@@ -67,7 +66,7 @@ export default function DashboardPage() {
             Analysis overview for run {runId} • {new Date(mockRunData.date).toLocaleDateString()}
           </p>
         </div>
-        <Link href="/henry">
+        <Link href="/dashboard/henry-runs">
           <Button variant="outline">← Back to Runs</Button>
         </Link>
       </div>
@@ -234,7 +233,7 @@ export default function DashboardPage() {
       {/* Navigation Cards */}
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="cursor-pointer hover:shadow-md transition-shadow">
-          <Link href={`/henry/${runId}/projects`}>
+          <Link href="/dashboard/henry-projects">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Settings className="h-5 w-5" />
@@ -257,7 +256,7 @@ export default function DashboardPage() {
         </Card>
 
         <Card className="cursor-pointer hover:shadow-md transition-shadow">
-          <Link href={`/henry/${runId}/models`}>
+          <Link href="/dashboard/henry-models">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Database className="h-5 w-5" />
@@ -280,7 +279,7 @@ export default function DashboardPage() {
         </Card>
 
         <Card className="cursor-pointer hover:shadow-md transition-shadow">
-          <Link href={`/henry/${runId}/explores`}>
+          <Link href="/dashboard/henry-explores">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Eye className="h-5 w-5" />

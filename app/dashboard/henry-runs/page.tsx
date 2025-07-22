@@ -203,7 +203,7 @@ export default function HenryRunsPage() {
                   </TableCell>
                   <TableCell>
                     {run.status === "completed" ? (
-                      <Link href={`/henry/${run.runId}/dashboard`}>
+                      <Link href="/dashboard/henry-dashboard">
                         <Button variant="outline" size="sm">
                           View Report
                         </Button>

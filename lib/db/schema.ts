@@ -149,4 +149,73 @@ export const organisationConnections = pgTable('organisation_connections', {
       () => /* @__PURE__ */ new Date(),
     ),
   });
+
+  // Henry Analytics Tables
+
+  // Runs - Track each time the Henry analysis was run
+  export const runs = pgTable("runs", {
+    runId: serial("run_id").primaryKey(),
+    runTimestamp: timestamp("run_timestamp")
+      .$defaultFn(() => /* @__PURE__ */ new Date())
+      .notNull(),
+    status: text("status").notNull().default("completed"), // "completed", "processing", "failed"
+  });
+
+  // Projects - Stores data from analyze_projects.csv
+  export const projects = pgTable("projects", {
+    projectId: serial("project_id").primaryKey(),
+    runId: integer("run_id")
+      .notNull()
+      .references(() => runs.runId, { onDelete: "cascade" }),
+    projectName: text("project_name").notNull(),
+    gitConnectionStatus: text("git_connection_status").notNull(),
+    prMode: text("pr_mode").notNull(),
+    isValidationRequired: boolean("is_validation_required").default(false),
+  });
+
+  // Models - Stores data from analyze_models.csv and vacuum_models.csv
+  export const models = pgTable("models", {
+    modelId: serial("model_id").primaryKey(),
+    projectId: integer("project_id")
+      .notNull()
+      .references(() => projects.projectId, { onDelete: "cascade" }),
+    modelName: text("model_name").notNull(),
+    totalExplores: integer("total_explores").default(0),
+    unusedExplores: integer("unused_explores").default(0),
+    queryCount: integer("query_count").default(0),
+  });
+
+  // Explores - Stores data from analyze_explores.csv and vacuum_explores.csv
+  export const explores = pgTable("explores", {
+    exploreId: serial("explore_id").primaryKey(),
+    modelId: integer("model_id")
+      .notNull()
+      .references(() => models.modelId, { onDelete: "cascade" }),
+    exploreName: text("explore_name").notNull(),
+    isHidden: boolean("is_hidden").default(false),
+    hasDescription: boolean("has_description").default(false),
+    totalJoins: integer("total_joins").default(0),
+    unusedJoins: integer("unused_joins").default(0),
+    totalFields: integer("total_fields").default(0),
+    unusedFields: integer("unused_fields").default(0),
+    queryCount: integer("query_count").default(0),
+  });
+
+  // Unused Joins - Detailed list for each explore
+  export const unusedJoins = pgTable("unused_joins", {
+    unusedJoinId: serial("unused_join_id").primaryKey(),
+    exploreId: integer("explore_id")
+      .notNull()
+      .references(() => explores.exploreId, { onDelete: "cascade" }),
+    joinName: text("join_name").notNull(),
+  });
+
+  // Unused Fields - Detailed list for each explore
+  export const unusedFields = pgTable("unused_fields", {
+    unusedFieldId: serial("unused_field_id").primaryKey(),
+    exploreId: integer("explore_id")
+      .notNull()
+      .references(() => explores.exploreId, { onDelete: "cascade" }),
+    fieldName: text("field_name").notNull(),
+  });
   

@@ -38,8 +38,6 @@ import {
   Boxes, 
   Search, 
   Settings,
-  Lock,
-  CheckCircle,
   LayoutDashboard,
   LogOut,
   User,
@@ -121,25 +119,38 @@ const navItems = [
     icon: LayoutDashboard,
     description: "Overview and statistics"
   },
+]
+
+const henryNavItems = [
+  {
+    title: "Henry Runs",
+    url: "/dashboard/henry-runs",
+    icon: BarChart3,
+    description: "Historical overview of analysis runs"
+  },
+  {
+    title: "Henry Dashboard",
+    url: "/dashboard/henry-dashboard",
+    icon: LayoutDashboard,
+    description: "High-level analysis overview"
+  },
+  {
+    title: "Projects",
+    url: "/dashboard/henry-projects",
+    icon: Settings,
+    description: "Project configuration analysis"
+  },
   {
     title: "Models",
-    url: "/dashboard/models", 
+    url: "/dashboard/henry-models",
     icon: Boxes,
-    description: "Manage and clean up your models",
-    requiresConnection: true
+    description: "Model health and unused explores"
   },
   {
-    title: "Explore",
-    url: "/dashboard/explore",
+    title: "Explores",
+    url: "/dashboard/henry-explores",
     icon: Search,
-    description: "Explore model relationships",
-    requiresConnection: true
-  },
-  {
-    title: "Henry Analytics",
-    url: "/henry",
-    icon: BarChart3,
-    description: "Looker instance health analysis and maintenance insights"
+    description: "Detailed explore analysis and cleanup"
   },
 ]
 
@@ -349,37 +360,44 @@ function DashboardSidebar() {
       </SidebarHeader>
       
       <SidebarContent>
-        {/* Navigation */}
+        {/* Main Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => {
                 const isActive = pathname === item.url
-                const isLocked = item.requiresConnection && !isConnected
                 
                 return (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton 
-                      asChild={!isLocked}
-                      isActive={isActive}
-                      disabled={isLocked}
-                      className={isLocked ? "opacity-50 cursor-not-allowed" : ""}
-                    >
-                      {isLocked ? (
-                        <div className="flex items-center gap-2">
-                          <Lock className="h-4 w-4" />
-                          <span>{item.title}</span>
-                        </div>
-                      ) : (
-                        <Link href={item.url}>
-                          <item.icon className="h-4 w-4" />
-                          <span>{item.title}</span>
-                          {item.title === "Connection" && isConnected && (
-                            <CheckCircle className="h-3 w-3 text-green-500 ml-auto" />
-                          )}
-                        </Link>
-                      )}
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.url}>
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Henry Analytics */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Henry Analytics</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {henryNavItems.map((item) => {
+                const isActive = pathname === item.url
+                
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild isActive={isActive}>
+                      <Link href={item.url}>
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 )
