@@ -192,7 +192,7 @@ export default function ModelInsightsPage() {
             Model health and composition analysis for run {runId}
           </p>
         </div>
-        <Link href={`/henry/${runId}/dashboard`}>
+                  <Link href="/dashboard/henry-dashboard">
           <Button variant="outline">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard

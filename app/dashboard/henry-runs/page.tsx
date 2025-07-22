@@ -87,11 +87,11 @@ function getBloatScoreIndicator(score: number | null) {
   }
 }
 
-export default function HenryRunsPage() {
+export default function RunsPage() {
   return (
     <div className="space-y-6 p-6">
       <div>
-        <h1 className="text-3xl font-bold">Henry Analytics</h1>
+        <h1 className="text-3xl font-bold">Runs</h1>
         <p className="text-muted-foreground mt-2">
           Historical overview of your Looker instance health analysis runs
         </p>
@@ -163,7 +163,7 @@ export default function HenryRunsPage() {
         <CardHeader>
           <CardTitle>Run History</CardTitle>
           <CardDescription>
-            Complete history of Henry analysis runs for your Looker instance
+            Complete history of analysis runs for your Looker instance
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -43,9 +43,7 @@ import {
   User,
   Building,
   ChevronDown,
-  Plus,
   Users,
-  UserPlus,
   Shield,
   BarChart3
 } from "lucide-react"
@@ -114,22 +112,13 @@ export function useDashboard() {
 
 const navItems = [
   {
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: LayoutDashboard,
-    description: "Overview and statistics"
-  },
-]
-
-const henryNavItems = [
-  {
-    title: "Henry Runs",
+    title: "Runs",
     url: "/dashboard/henry-runs",
     icon: BarChart3,
     description: "Historical overview of analysis runs"
   },
   {
-    title: "Henry Dashboard",
+    title: "Dashboard",
     url: "/dashboard/henry-dashboard",
     icon: LayoutDashboard,
     description: "High-level analysis overview"
@@ -151,6 +140,12 @@ const henryNavItems = [
     url: "/dashboard/henry-explores",
     icon: Search,
     description: "Detailed explore analysis and cleanup"
+  },
+  {
+    title: "Admin",
+    url: "/dashboard/admin",
+    icon: Shield,
+    description: "Manage organizations and connections"
   },
 ]
 
@@ -250,55 +245,7 @@ function ConnectionSelector({
   )
 }
 
-function AdminPanel({ 
-  organizations,
-  router,
-  pathname 
-}: {
-  organizations: Organization[]
-  router: AppRouterInstance
-  pathname: string
-}) {
-  const isAdmin = organizations.some(org => org.role === 'admin');
-  const hasOrganizations = organizations.length > 0;
 
-  // Only show if user is admin OR has no organizations (needs to create one)
-  if (!isAdmin && hasOrganizations) return null;
-
-  const isActive = pathname.startsWith('/dashboard/admin');
-
-  return (
-    <div className="px-2 py-2">
-      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-        <Shield className="h-3 w-3" />
-        <span>{isAdmin ? 'Admin' : 'Getting Started'}</span>
-      </div>
-      
-      <Button
-        variant={isActive ? 'default' : 'ghost'}
-        size="sm"
-        onClick={() => router.push('/dashboard/admin')}
-        className={`justify-start gap-2 h-8 text-xs w-full ${
-          isActive 
-            ? 'bg-primary text-primary-foreground' 
-            : 'text-muted-foreground hover:text-foreground'
-        }`}
-      >
-        {isAdmin ? (
-          <>
-            <Shield className="h-3 w-3" />
-            Admin Panel
-          </>
-        ) : (
-          <>
-            <Plus className="h-3 w-3" />
-            Create Organization
-          </>
-        )}
-      </Button>
-    </div>
-  );
-}
 
 function DashboardSidebar() {
   const pathname = usePathname()
@@ -360,7 +307,7 @@ function DashboardSidebar() {
       </SidebarHeader>
       
       <SidebarContent>
-        {/* Main Navigation */}
+        {/* Navigation */}
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -382,43 +329,9 @@ function DashboardSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
-        {/* Henry Analytics */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Henry Analytics</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {henryNavItems.map((item) => {
-                const isActive = pathname === item.url
-                
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={isActive}>
-                      <Link href={item.url}>
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                )
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
       </SidebarContent>
       
       <SidebarFooter>
-        {/* Admin Panel */}
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <AdminPanel 
-              organizations={organizations}
-              router={router}
-              pathname={pathname}
-            />
-          </SidebarGroupContent>
-        </SidebarGroup>
-        
         {/* Organization and Connection Selectors */}
         <SidebarGroup>
           <SidebarGroupLabel>Context</SidebarGroupLabel>
