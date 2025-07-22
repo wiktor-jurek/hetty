@@ -1,0 +1,8 @@
+Project,# Models,# View Files,Git Connection Status,PR Mode,Is Validation Required
+marketplace_extension_api_explorer,1,0,"Bare repo, no tests required",off,False
+marketplace_extension_data_dictionary,1,0,"Bare repo, no tests required",off,False
+dna_legal,1,38,OK,off,True
+living_dna,1,35,"Bare repo, no tests required",off,True
+marketplace_extension_lookml_diagram,1,0,"Bare repo, no tests required",off,False
+marketplace_viz_liquid_fill_gauge,0,0,"Bare repo, no tests required",off,False
+dna_legal_general,1,43,"Bare repo, no tests required",off,True

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { db } from "@/lib/db/drizzle"
-import { connections, organisations } from "@/lib/db/schema"
+import { connections, organisations, organisationConnections } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
 
 const connectionValidationSchema = z.object({
@@ -20,21 +20,39 @@ export async function POST(request: NextRequest) {
     const existingConnection = await db
       .select({
         id: connections.id,
-        organisationId: connections.organisationId,
-        organisationName: organisations.name,
       })
       .from(connections)
-      .leftJoin(organisations, eq(connections.organisationId, organisations.id))
       .where(eq(connections.uniqueIdentifier, validatedData.uniqueIdentifier))
       .limit(1)
 
     if (existingConnection.length > 0) {
-      // Connection exists, return organization info
-      return NextResponse.json({
-        exists: true,
-        organizationId: existingConnection[0].organisationId,
-        organizationName: existingConnection[0].organisationName,
-      })
+      // Connection exists, get all organizations linked to it
+      const linkedOrganizations = await db
+        .select({
+          organisationId: organisationConnections.organisationId,
+          organisationName: organisations.name,
+        })
+        .from(organisationConnections)
+        .leftJoin(organisations, eq(organisationConnections.organisationId, organisations.id))
+        .where(eq(organisationConnections.connectionId, existingConnection[0].id))
+
+      if (linkedOrganizations.length > 0) {
+        // Return the first organization (for compatibility)
+        return NextResponse.json({
+          exists: true,
+          organizationId: linkedOrganizations[0].organisationId,
+          organizationName: linkedOrganizations[0].organisationName,
+          // Also include all linked organizations for future use
+          linkedOrganizations: linkedOrganizations,
+        })
+      } else {
+        // Connection exists but has no linked organizations (orphaned connection)
+        return NextResponse.json({
+          exists: true,
+          orphaned: true,
+          connectionId: existingConnection[0].id,
+        })
+      }
     }
 
     // Connection doesn't exist, it's available for new organization

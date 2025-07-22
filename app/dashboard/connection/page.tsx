@@ -36,7 +36,7 @@ export default function ConnectionPage() {
         </CardHeader>
         <CardContent>
           <Button asChild className="w-full">
-                         <Link href="/dashboard/connections">
+                         <Link href="/dashboard/admin">
                <Database className="h-4 w-4 mr-2" />
                Go to Connection Setup
                <ArrowRight className="h-4 w-4 ml-2" />

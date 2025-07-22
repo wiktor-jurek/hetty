@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db/drizzle"
-import { connections, organisations, memberships, user } from "@/lib/db/schema"
+import { connections, organisations, memberships, user, organisationConnections } from "@/lib/db/schema"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
-import { eq } from "drizzle-orm"
+import { eq, inArray } from "drizzle-orm"
 
 export async function GET(request: NextRequest) {
   try {
@@ -25,21 +25,25 @@ export async function GET(request: NextRequest) {
     const userMemberships = await db
       .select({
         organisationId: memberships.organisationId,
+        organisationName: organisations.name,
         role: memberships.role,
       })
       .from(memberships)
+      .leftJoin(organisations, eq(memberships.organisationId, organisations.id))
       .where(eq(memberships.userId, userId))
 
     if (userMemberships.length === 0) {
       return NextResponse.json({
         connections: [],
+        organizations: [],
         message: "No organization memberships found"
       })
     }
 
-    // Get all connections for user's organizations
+    // Get all organization IDs for the user
     const orgIds = userMemberships.map(m => m.organisationId)
     
+    // Get all connections for user's organizations via the junction table
     const connectionsData = await db
       .select({
         id: connections.id,
@@ -48,18 +52,22 @@ export async function GET(request: NextRequest) {
         uniqueIdentifier: connections.uniqueIdentifier,
         createdAt: connections.createdAt,
         createdBy: connections.createdBy,
-        organisationId: connections.organisationId,
+        organisationId: organisationConnections.organisationId,
         organisationName: organisations.name,
         creatorName: user.name,
         creatorEmail: user.email,
+        addedBy: organisationConnections.addedBy,
+        addedAt: organisationConnections.createdAt,
       })
-      .from(connections)
-      .leftJoin(organisations, eq(connections.organisationId, organisations.id))
+      .from(organisationConnections)
+      .leftJoin(connections, eq(organisationConnections.connectionId, connections.id))
+      .leftJoin(organisations, eq(organisationConnections.organisationId, organisations.id))
       .leftJoin(user, eq(connections.createdBy, user.id))
-      .where(eq(connections.organisationId, orgIds[0])) // For now, just get first org's connections
+      .where(inArray(organisationConnections.organisationId, orgIds))
 
     return NextResponse.json({
       connections: connectionsData,
+      organizations: userMemberships,
       userRole: userMemberships[0]?.role,
     })
 

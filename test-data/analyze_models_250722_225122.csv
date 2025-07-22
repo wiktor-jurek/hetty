@@ -1,0 +1,7 @@
+Project,Model,# Explores,# Unused Explores,Query Count
+dna_legal,dna_legal,10,6,1035
+marketplace_extension_api_explorer,extension-api-explorer,0,0,0
+marketplace_extension_data_dictionary,data-dictionary,0,0,0
+marketplace_extension_lookml_diagram,lookml-diagram,0,0,0
+living_dna,living_dna,24,24,0
+dna_legal_general,warehouse_general,8,7,21

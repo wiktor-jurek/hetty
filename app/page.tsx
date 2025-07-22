@@ -5,8 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Eye, Shield, Zap, Users, Building, CheckCircle } from "lucide-react"
 import Link from "next/link"
+import { useSession } from "@/lib/auth-client"
 
 export default function HomePage() {
+  const { data: session, isPending } = useSession()
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Hero Section */}
@@ -40,15 +43,17 @@ export default function HomePage() {
             </p>
           </div>
 
-                     {/* CTA Buttons */}
-           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-             <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
-               <Link href="/signin">
-                 Get Started
-                 <ArrowRight className="w-4 h-4 ml-2" />
-               </Link>
-             </Button>
-           </div>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {!isPending && (
+              <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+                <Link href={session?.user ? "/dashboard" : "/signin"}>
+                  {session?.user ? "Go to Dashboard" : "Get Started"}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
@@ -173,12 +178,14 @@ export default function HomePage() {
           <p className="text-lg text-slate-600 mb-8">
             Start by adding your first connection and see how Hetty organizes your team automatically
           </p>
-                     <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
-             <Link href="/signin">
-               Start Your Free Account
-               <ArrowRight className="w-4 h-4 ml-2" />
-             </Link>
-           </Button>
+          {!isPending && (
+            <Button asChild size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+              <Link href={session?.user ? "/dashboard" : "/signin"}>
+                {session?.user ? "Go to Dashboard" : "Start Your Free Account"}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </div>

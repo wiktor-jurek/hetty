@@ -14,14 +14,14 @@ export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
-  emailVerified: boolean("email_verified")
+  emailVerified: boolean("emailVerified")
     .$defaultFn(() => false)
     .notNull(),
   image: text("image"),
-  createdAt: timestamp("created_at")
+  createdAt: timestamp("createdAt")
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
-  updatedAt: timestamp("updated_at")
+  updatedAt: timestamp("updatedAt")
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
 });
@@ -59,12 +59,9 @@ export const joinRequests = pgTable("join_requests", {
     .notNull(),
 });
 
-// Connections Table - Updated with URL as unique identifier
+// Connections Table - Updated to remove direct organization relationship
 export const connections = pgTable('connections', {
   id: serial('id').primaryKey(),
-  organisationId: integer('organisation_id')
-    .notNull()
-    .references(() => organisations.id, { onDelete: 'cascade' }),
   
   // Globally unique identifier - the Looker URL (e.g., "https://company.looker.com")
   uniqueIdentifier: text('unique_identifier').notNull().unique(),
@@ -89,60 +86,66 @@ export const connections = pgTable('connections', {
     .notNull(),
 });
 
-// Keep the existing lookerConnections for backward compatibility
-export const lookerConnections = pgTable('looker_connections', {
+// Junction table for many-to-many relationship between organizations and connections
+export const organisationConnections = pgTable('organisation_connections', {
   id: serial('id').primaryKey(),
   organisationId: integer('organisation_id')
     .notNull()
-    .unique()
     .references(() => organisations.id, { onDelete: 'cascade' }),
-  
-  lookerUrl: text('looker_url').notNull(),
-  lookerPort: integer('looker_port'),
-  lookerClientId: varchar('looker_client_id', { length: 256 }).notNull(),
-  encryptedLookerSecret: text('encrypted_looker_secret').notNull(),
+  connectionId: integer('connection_id')
+    .notNull()
+    .references(() => connections.id, { onDelete: 'cascade' }),
+  // Track who added this connection to the organization
+  addedBy: text('added_by')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  createdAt: timestamp("created_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
 });
+
+
   
   export const session = pgTable("session", {
     id: text("id").primaryKey(),
-    expiresAt: timestamp("expires_at").notNull(),
+    expiresAt: timestamp("expiresAt").notNull(),
     token: text("token").notNull().unique(),
-    createdAt: timestamp("created_at").notNull(),
-    updatedAt: timestamp("updated_at").notNull(),
-    ipAddress: text("ip_address"),
-    userAgent: text("user_agent"),
-    userId: text("user_id")
+    createdAt: timestamp("createdAt").notNull(),
+    updatedAt: timestamp("updatedAt").notNull(),
+    ipAddress: text("ipAddress"),
+    userAgent: text("userAgent"),
+    userId: text("userId")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
   });
   
   export const account = pgTable("account", {
     id: text("id").primaryKey(),
-    accountId: text("account_id").notNull(),
-    providerId: text("provider_id").notNull(),
-    userId: text("user_id")
+    accountId: text("accountId").notNull(),
+    providerId: text("providerId").notNull(),
+    userId: text("userId")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
-    accessToken: text("access_token"),
-    refreshToken: text("refresh_token"),
-    idToken: text("id_token"),
-    accessTokenExpiresAt: timestamp("access_token_expires_at"),
-    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+    accessToken: text("accessToken"),
+    refreshToken: text("refreshToken"),
+    idToken: text("idToken"),
+    accessTokenExpiresAt: timestamp("accessTokenExpiresAt"),
+    refreshTokenExpiresAt: timestamp("refreshTokenExpiresAt"),
     scope: text("scope"),
     password: text("password"),
-    createdAt: timestamp("created_at").notNull(),
-    updatedAt: timestamp("updated_at").notNull(),
+    createdAt: timestamp("createdAt").notNull(),
+    updatedAt: timestamp("updatedAt").notNull(),
   });
   
   export const verification = pgTable("verification", {
     id: text("id").primaryKey(),
     identifier: text("identifier").notNull(),
     value: text("value").notNull(),
-    expiresAt: timestamp("expires_at").notNull(),
-    createdAt: timestamp("created_at").$defaultFn(
+    expiresAt: timestamp("expiresAt").notNull(),
+    createdAt: timestamp("createdAt").$defaultFn(
       () => /* @__PURE__ */ new Date(),
     ),
-    updatedAt: timestamp("updated_at").$defaultFn(
+    updatedAt: timestamp("updatedAt").$defaultFn(
       () => /* @__PURE__ */ new Date(),
     ),
   });

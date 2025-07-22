@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Lock, Boxes, Trash2, Eye, Calendar, AlertTriangle } from "lucide-react"
 import Link from "next/link"
-import { useConnection } from "../layout"
+import { useDashboard } from "../layout"
 
 const mockModels = [
   {
@@ -48,7 +48,7 @@ const mockModels = [
 ]
 
 export default function ModelsPage() {
-  const { isConnected } = useConnection()
+  const { isConnected } = useDashboard()
 
   if (!isConnected) {
     return (
@@ -72,7 +72,7 @@ export default function ModelsPage() {
           </CardHeader>
           <CardContent>
             <Button asChild className="bg-amber-600 hover:bg-amber-700">
-              <Link href="/dashboard/connections">
+              <Link href="/dashboard/admin">
                 Connect to Looker
               </Link>
             </Button>

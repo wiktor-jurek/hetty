@@ -29,6 +29,34 @@
       "when": 1753131216476,
       "tag": "0003_flawless_nuke",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1753172200761,
+      "tag": "0004_productive_butterfly",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1753189400000,
+      "tag": "0005_remove_legacy_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1753218558718,
+      "tag": "0006_harsh_terror",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1753219272939,
+      "tag": "0007_concerned_ares",
+      "breakpoints": true
     }
   ]
 }
