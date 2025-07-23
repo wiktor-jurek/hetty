@@ -219,24 +219,44 @@ export async function createLookerConnection(
       
       // Create or update the connection
       const result = await db.transaction(async (tx) => {
-
-
         let connectionId: number;
 
         if (existingConnection.length > 0) {
-          // Update existing connection
+          // Check if user's organization has access to this existing connection
+          const organizationHasAccess = await tx
+            .select()
+            .from(organisationConnections)
+            .where(
+              and(
+                eq(organisationConnections.connectionId, existingConnection[0].id),
+                eq(organisationConnections.organisationId, organisationId)
+              )
+            )
+            .limit(1);
+
           connectionId = existingConnection[0].id;
-          await tx.update(connections)
-            .set({
-              encryptedCredentials: encrypt(JSON.stringify({
-                lookerUrl,
-                lookerPort,
-                clientId,
-                clientSecret
-              })),
-              updatedAt: new Date(),
-            })
-            .where(eq(connections.id, connectionId));
+
+          if (organizationHasAccess.length > 0) {
+            // Organization has access - allow credential update
+            await tx.update(connections)
+              .set({
+                encryptedCredentials: encrypt(JSON.stringify({
+                  lookerUrl,
+                  lookerPort,
+                  clientId,
+                  clientSecret
+                })),
+                updatedAt: new Date(),
+              })
+              .where(eq(connections.id, connectionId));
+          } else {
+            // Organization doesn't have access - just add connection to organization without updating credentials
+            await tx.insert(organisationConnections).values({
+              organisationId: organisationId,
+              connectionId: connectionId,
+              addedBy: userId,
+            }).onConflictDoNothing();
+          }
         } else {
           // Create new connection
           const [newConnection] = await tx.insert(connections).values({
@@ -253,14 +273,14 @@ export async function createLookerConnection(
           }).returning({ id: connections.id });
 
           connectionId = newConnection.id;
-        }
 
-        // Link connection to organization
-        await tx.insert(organisationConnections).values({
-          organisationId: organisationId,
-          connectionId: connectionId,
-          addedBy: userId,
-        }).onConflictDoNothing();
+          // Link connection to organization
+          await tx.insert(organisationConnections).values({
+            organisationId: organisationId,
+            connectionId: connectionId,
+            addedBy: userId,
+          }).onConflictDoNothing();
+        }
 
         return connectionId;
       });
@@ -298,24 +318,33 @@ export async function createLookerConnection(
         role: "admin",
       });
 
-
-
       let connectionId: number;
 
       if (existingConnection.length > 0) {
-        // Use existing connection
+        // Check if any organization has access to this existing connection
+        const existingOrganizationAccess = await tx
+          .select()
+          .from(organisationConnections)
+          .where(eq(organisationConnections.connectionId, existingConnection[0].id))
+          .limit(1);
+
         connectionId = existingConnection[0].id;
-        await tx.update(connections)
-          .set({
-            encryptedCredentials: encrypt(JSON.stringify({
-              lookerUrl,
-              lookerPort,
-              clientId,
-              clientSecret
-            })),
-            updatedAt: new Date(),
-          })
-          .where(eq(connections.id, connectionId));
+
+        if (existingOrganizationAccess.length === 0) {
+          // No organization has access to this connection (orphaned) - allow credential update
+          await tx.update(connections)
+            .set({
+              encryptedCredentials: encrypt(JSON.stringify({
+                lookerUrl,
+                lookerPort,
+                clientId,
+                clientSecret
+              })),
+              updatedAt: new Date(),
+            })
+            .where(eq(connections.id, connectionId));
+        }
+        // If other organizations have access, don't update credentials - just link to new organization
       } else {
         // Create new connection
         const [newConnection] = await tx.insert(connections).values({
