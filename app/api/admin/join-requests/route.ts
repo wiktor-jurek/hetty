@@ -3,7 +3,7 @@ import { db } from "@/lib/db/drizzle"
 import { joinRequests, memberships, organisations, user } from "@/lib/db/schema"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
-import { eq, and } from "drizzle-orm"
+import { eq, and, inArray } from "drizzle-orm"
 
 export async function GET(request: NextRequest) {
   try {
@@ -57,9 +57,9 @@ export async function GET(request: NextRequest) {
       .leftJoin(user, eq(joinRequests.userId, user.id))
       .leftJoin(organisations, eq(joinRequests.organisationId, organisations.id))
       .where(
-        // Filter for organizations where user is admin and only pending/recent requests
+        // Filter for organizations where user is admin
         and(
-          eq(joinRequests.organisationId, orgIds[0]) // This is simplified, you'd need to handle multiple orgs properly
+          inArray(joinRequests.organisationId, orgIds)
         )
       )
       .orderBy(joinRequests.createdAt)
